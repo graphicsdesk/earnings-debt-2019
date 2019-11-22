@@ -1,0 +1,11 @@
+{
+  "plugins": {
+    "posthtml-include": {
+      "root": "./src"
+    },
+    "posthtml-expressions": {
+      "root": "./src/partials",
+      "locals": {"headline":"Overall TK sturdy, but lags in the arts, new data show","deck":"The deck summarizes the story and draws people in","date":"October 17, 2019","byline":"By <a href=\"https://www.columbiaspectator.com/contributors/Seyla-Phan\">TK TK</a>","body":[{"type":"text","value":"New government data offer the most granular look yet at education debt and earnings for Columbia graduates."},{"type":"text","value":"Nutgraf."},{"type":"graphic","value":{"width":"","asset":"masters.html"}},{"type":"text","value":"<i>Staff graphics reporter TK TK can be contacted at </i><a href=\"mailto:email@columbiaspectator.com\"><i>email@columbiaspectator.com</i></a><i>.</i>"}],"USE_EYE_NAV":false,"USE_COVER_HED":false,"DOC_URL":"https://docs.google.com/document/d/18PaUBEFCnubAClUX7t_uSQAzmixzgrQhFjkyrpK7_aI/edit"}
+    }
+  }
+}
