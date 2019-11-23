@@ -1,4 +1,5 @@
 library(tidyverse)
+library(ggrepel)
 
 peers <- c(
   "Columbia University in the City of New York",
@@ -14,7 +15,7 @@ peers <- c(
   "University of Chicago",
   "University of Pennsylvania"
 )
-raw_data <- readxl::read_excel("../Most-Recent-Field-Data-Elements.xlsx")
+raw_data <- readxl::read_excel("Most-Recent-Field-Data-Elements.xlsx")
 data <- raw_data %>% 
   filter(
     MD_EARN_WNE != "PrivacySuppressed" &
@@ -65,3 +66,39 @@ plot_cred_data("First Professional Degree")
 plot_cred_data("Bachelor\u0092s Degree")
 
 plot_cred_data("Master's Degree")
+
+plot_schools <- function(cred) {
+  cred_data <- get_cred_data(cred)
+  limits <- cred_data %>% 
+    filter(INSTNM %in% peers) %>%
+    group_by(INSTNM) %>% 
+    dplyr::summarize(min = 0, max = max(DEBTMEDIAN, MD_EARN_WNE)) %>% 
+    gather(lim_label, y, min, max) %>% 
+    mutate(y = y * 1.05, x = y) %>% 
+    arrange(INSTNM, y)
+  cred_data %>% 
+    filter(INSTNM %in% peers) %>% 
+    ggplot(aes(DEBTMEDIAN, MD_EARN_WNE)) +
+    geom_abline(slope = 1) +
+    geom_point(aes(label = CIPDESC)) +
+    geom_text_repel(aes(label = CIPDESC)) +
+    geom_blank(data = limits, aes(x, y)) +
+    facet_wrap(~ INSTNM, scales = "free") +
+    expand_limits(x = 0, y = 0) +
+    scale_x_continuous(expand = c(0, 0), labels = scales::dollar) +
+    scale_y_continuous(expand = c(0, 0), labels = scales::dollar)
+}
+
+plot_schools("Master's Degree")
+
+get_cred_data("Bachelor\u0092s Degree") %>% 
+  filter(INSTNM %in% peers & grepl("Columbia", INSTNM)) %>% 
+  ggplot(aes(reorder(CIPDESC, DEBTMEDIAN), DEBTMEDIAN)) +
+  geom_col() +
+  coord_flip()
+
+get_cred_data("Bachelor\u0092s Degree") %>% 
+  filter(INSTNM %in% peers & grepl("Columbia", INSTNM)) %>% 
+  ggplot(aes(reorder(CIPDESC, MD_EARN_WNE), MD_EARN_WNE)) +
+  geom_col() +
+  coord_flip()
