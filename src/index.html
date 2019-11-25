@@ -30,6 +30,9 @@
             <if condition="item.value.asset === 'masters.html'">
               <include src="masters.html"></include>
             </if>
+            <if condition="item.value.asset === 'scatterplot.html'">
+              <include src="scatterplot.html"></include>
+            </if>
           </div>
         </case>
       </switch>
@@ -76,16 +79,10 @@
                       });
                   }
               } catch(e) { console.log(e); }
-              if (window.innerWidth <= 460 && window.innerWidth >= 360) {
-                console.log('hi');
-                document.getElementById('g-linguistics-1-300').style.maxWidth = '360px';
-                document.getElementById('g-linguistics-2-300').style.maxWidth = '360px';
-                document.getElementById('g-linguistics-3-300').style.maxWidth = '360px';
-              }
           }
           document.addEventListener('DOMContentLoaded', resizer);
           // feel free to replace throttle with _.throttle, if available
-          window.addEventListener('resize', throttle(resizer, 200));        
+          window.addEventListener('resize', throttle(resizer, 200));
           function throttle(func, wait) {
               // from underscore.js
               var _now = Date.now || function() { return new Date().getTime(); },
@@ -108,7 +105,7 @@
                       previous = now;
                       result = func.apply(context, args);
                       if (!timeout) context = args = null;
-                  } else if (!timeout && options.trailing !== false) {
+                  } else if (!timeout /* && options.trailing !== false */) {
                       timeout = setTimeout(later, remaining);
                   }
                   return result;
