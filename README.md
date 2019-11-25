@@ -6,10 +6,10 @@
 
 1. Clone the repository
 ```
-git clone git@github.com:spec-journalism/TK.git
+git clone git@github.com:spec-journalism/earnings-debt-2019.git
 ```
 
-2. Go into the repository: `cd TK`
+2. Go into the repository: `cd earnings-debt-2019`
 
 3. Run `npm install`
 
