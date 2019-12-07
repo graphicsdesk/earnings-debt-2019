@@ -74,7 +74,7 @@ plot_schools <- function(cred) {
     group_by(INSTNM) %>% 
     dplyr::summarize(min = 0, max = max(DEBTMEDIAN, MD_EARN_WNE)) %>% 
     gather(lim_label, y, min, max) %>% 
-    mutate(y = y * 1.05, x = y) %>% 
+    mutate(y = y * 1.05, x = y) %>% s
     arrange(INSTNM, y)
   cred_data %>% 
     filter(INSTNM %in% peers) %>% 
