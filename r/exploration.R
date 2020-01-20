@@ -95,10 +95,16 @@ get_cred_data("Bachelor\u0092s Degree") %>%
   filter(INSTNM %in% peers & grepl("Columbia", INSTNM)) %>% 
   ggplot(aes(reorder(CIPDESC, DEBTMEDIAN), DEBTMEDIAN)) +
   geom_col() +
-  coord_flip()
+  coord_flip() +
+  xlab("Field") +
+  ylab("Median debt") +
+  labs(title = "Columbia Bachelor's degrees: Median DEBT")
 
 get_cred_data("Bachelor\u0092s Degree") %>% 
   filter(INSTNM %in% peers & grepl("Columbia", INSTNM)) %>% 
   ggplot(aes(reorder(CIPDESC, MD_EARN_WNE), MD_EARN_WNE)) +
   geom_col() +
-  coord_flip()
+  coord_flip() +
+  xlab("Field") +
+  ylab("Median income") +
+  labs(title = "Columbia Bachelor's degrees: Median INCOME")
