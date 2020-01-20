@@ -1,6 +1,10 @@
 library(tidyverse)
 library(ggrepel)
 
+BADG <- "Bachelor\u0092s Degree"
+MADG <- "Master's Degree"
+FPDG <- "First Professional Degree"
+
 peers <- c(
   "Columbia University in the City of New York",
   "Brown University",
@@ -61,11 +65,11 @@ plot_cred_data <- function(cred) {
     scale_y_continuous(expand = c(0, 0), labels = scales::dollar)
 }
 
-plot_cred_data("First Professional Degree")
+plot_cred_data(FPDG)
 
-plot_cred_data("Bachelor\u0092s Degree")
+plot_cred_data(BADG)
 
-plot_cred_data("Master's Degree")
+plot_cred_data(MADG)
 
 plot_schools <- function(cred) {
   cred_data <- get_cred_data(cred)
@@ -89,22 +93,22 @@ plot_schools <- function(cred) {
     scale_y_continuous(expand = c(0, 0), labels = scales::dollar)
 }
 
-plot_schools("Master's Degree")
+plot_schools(MADG)
 
-get_cred_data("Bachelor\u0092s Degree") %>% 
+get_cred_data(MADG) %>% 
   filter(INSTNM %in% peers & grepl("Columbia", INSTNM)) %>% 
   ggplot(aes(reorder(CIPDESC, DEBTMEDIAN), DEBTMEDIAN)) +
   geom_col() +
   coord_flip() +
   xlab("Field") +
   ylab("Median debt") +
-  labs(title = "Columbia Bachelor's degrees: Median DEBT")
+  labs(title = "Columbia Master's degrees: Median DEBT")
 
-get_cred_data("Bachelor\u0092s Degree") %>% 
+get_cred_data(MADG) %>% 
   filter(INSTNM %in% peers & grepl("Columbia", INSTNM)) %>% 
   ggplot(aes(reorder(CIPDESC, MD_EARN_WNE), MD_EARN_WNE)) +
   geom_col() +
   coord_flip() +
   xlab("Field") +
   ylab("Median income") +
-  labs(title = "Columbia Bachelor's degrees: Median INCOME")
+  labs(title = "Columbia Master's degrees: Median INCOME")
